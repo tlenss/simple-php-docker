@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  http:
+    build:
+      context: ${HTTP_DOCKERFILE}
+      target: nginx-${APP_ENV}
+      args:
+        DNS_SERVER: ${DNS_SERVER}
+        APP_HOSTNAME: ${APP_HOSTNAME}
+        FPM_HOST: ${FPM_HOST}
+        FPM_PORT: ${FPM_PORT}
+    volumes:
+      - ${PWD}/public:/var/www/html/public
+
+  php-fpm:
+    build:
+      context: ${FPM_DOCKERFILE}
+      target: fpm-${PHP_VERSION}-${APP_ENV}
+    user: "${USER}:${GROUP}"
+    volumes:
+      - ${PWD}:/var/www/html

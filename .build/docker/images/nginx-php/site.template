@@ -1,0 +1,35 @@
+server {
+    listen 80;
+
+    server_name ${APP_HOSTNAME};
+
+    location / {
+        try_files   $uri $uri/ =404;
+        root        /var/www/html/public;
+        index       index.php index.html;
+    }
+
+    location ~* \.php$ {
+        root            /var/www/html/public;
+        fastcgi_pass    ${FPM_HOST}:${FPM_PORT};
+        include         fastcgi_params;
+        fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+        fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
+    }
+
+    # Deny access to . files, for security
+    location ~ /\. {
+        log_not_found off;
+        deny all;
+    }
+
+    # Allow fpm ping and status from localhost
+    location ~ ^/(status|ping)$ {
+        access_log off;
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+        fastcgi_pass ${FPM_HOST}:${FPM_PORT};
+    }
+}

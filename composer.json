@@ -1,0 +1,10 @@
+{
+  "name": "sample/application",
+  "type": "project",
+  "description": "A sample application.",
+  "keywords": [],
+  "license": "MIT",
+  "require": {
+    "php": "^7.3"
+  }
+}

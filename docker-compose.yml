@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  http:
+    image: lenssnl/test-app-nginx:latest
+    depends_on:
+      - php-fpm
+    ports:
+      - 80:80
+
+  php-fpm:
+    image: lenssnl/test-app-php:latest
