@@ -1,7 +1,0 @@
-docker build --no-cache -t lenssnl/php-fpm .
-
-docker run -d \
---network=test \
---rm \
---name php-fpm \
-lenssnl/php-fpm
