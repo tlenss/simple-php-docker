@@ -1,0 +1,7 @@
+FROM lenssnl/php-fpm:7.3 as php73-prod
+
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
+ADD .env.dist /var/www/html/.env
+ADD vendor /var/www/html/vendor
+ADD public /var/www/html/public
