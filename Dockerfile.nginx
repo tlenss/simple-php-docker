@@ -1,0 +1,9 @@
+FROM lenssnl/nginx-php as prod
+
+ARG DNS_SERVER=127.0.0.11
+ARG FPM_HOST=php-fpm
+ARG FPM_PORT=9000
+ARG APP_HOSTNAME=localhost
+
+ADD .build/nginx/site.template /etc/nginx/site.template
+RUN envsubst '${APP_HOSTNAME},${FPM_HOST},${FPM_PORT}' < /etc/nginx/site.template > /etc/nginx/sites-enabled/default
