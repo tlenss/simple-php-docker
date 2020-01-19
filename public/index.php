@@ -1,4 +1,5 @@
-<?php require "../vendor/autoload.php"; ?>
-<img src="images/index.png" />
 <?php
+
+require "../vendor/autoload.php";
+
 phpinfo();
