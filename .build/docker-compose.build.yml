@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  http:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+      target: ${APP_ENV}
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: Dockerfile.php-fpm
+      target: php${PHP_VERSION}-${APP_ENV}

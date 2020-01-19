@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  composer-install:
+    image: composer:latest
+    user: "${USER}:${GROUP}"
+    volumes:
+      - ${PWD}:/app
+      - ${COMPOSER_HOME:-$HOME/.config/composer}:$COMPOSER_HOME
+      - ${COMPOSER_CACHE_DIR:-$HOME/.cache/composer}:$COMPOSER_CACHE_DIR
+      - $SSH_AUTH_SOCK:/ssh-auth.sock
+    environment:
+      - SSH_AUTH_SOCK=/ssh-auth.sock
+      - COMPOSER_HOME
+      - COMPOSER_CACHE_DIR
+    command: install
+
+  phpunit:
+    image: lenssnl/php-cli:7.3
+    user: "${USER}:${GROUP}"
+    working_dir: /app
+    volumes:
+      - ${PWD}:/app
+    command: vendor/bin/phpunit
