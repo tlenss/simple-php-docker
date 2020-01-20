@@ -1,4 +1,14 @@
-FROM lenssnl/php-fpm:7.3 as php73-prod
+ARG PHP_IMAGE_TAG
+
+FROM lenssnl/php-fpm:7.3${PHP_IMAGE_TAG} as php7.3
+
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
+ADD .env.dist /var/www/html/.env
+ADD vendor /var/www/html/vendor
+ADD public /var/www/html/public
+
+FROM lenssnl/php-fpm:7.4${PHP_IMAGE_TAG} as php7.4
 
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 

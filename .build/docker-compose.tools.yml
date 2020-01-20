@@ -16,7 +16,7 @@ services:
     command: install
 
   phpunit:
-    image: lenssnl/php-cli:7.3
+    image: lenssnl/php-cli:${PHP_VERSION}
     user: "${USER}:${GROUP}"
     working_dir: /app
     volumes:
