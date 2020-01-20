@@ -7,6 +7,9 @@ services:
       - ${PWD}/public:/var/www/html/public
 
   php-fpm:
+    build:
+      args:
+        PHP_IMAGE_TAG: -dev
     container_name: testapp-php
     volumes:
       - ${PWD}:/var/www/html
